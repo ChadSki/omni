@@ -31,7 +31,7 @@ namespace Omni
             {
                 for (int x = 0; x < MapDimensions.Y; x++)
                 {
-                    GameTile gameTile = new GameTile(new Vector2(x, y), "Grass");
+                    GameTile gameTile = new GameTile(new Point(x, y), "Grass");
                     game_tiles[y, x] = gameTile;
                 }
             }
@@ -52,14 +52,14 @@ namespace Omni
                     rand_y = random.Next(0, MapDimensions.Y - 1);
                     tries += 1;
                 }
-                Tree newTree = new Tree(new Vector2(rand_x, rand_y));
+                Tree newTree = new Tree(new Point(rand_x, rand_y));
 
                 terrain.Add(newTree);
                 game_tiles[rand_y, rand_x].Terrain = newTree;
 
             }
         }
-        public bool IsPointInside(Vector2 mapCoordinates)
+        public bool IsPointInside(Point mapCoordinates)
         {
             if (mapCoordinates.X >= 0
                 && mapCoordinates.X < MapDimensions.X
@@ -70,28 +70,28 @@ namespace Omni
             }
             return false;
         }
-        public List<Vector2> GetValidNeighbors(Vector2 coordinates)
+        public List<Point> GetValidNeighbors(Point coordinates)
         {
-            List<Vector2> validNeighbors = new List<Vector2>();
-            List<Vector2> candidateNeighbors = new List<Vector2>()
+            List<Point> validNeighbors = new List<Point>();
+            List<Point> candidateNeighbors = new List<Point>()
             {
-                new Vector2(-1, -1),
-                new Vector2(0, -1),
-                new Vector2(1, -1),
-                new Vector2(-1, 0),
-                new Vector2(1, 0),
-                new Vector2(-1, 1),
-                new Vector2(0, 1),
-                new Vector2(1, 1)
+                new Point(-1, -1),
+                new Point(0, -1),
+                new Point(1, -1),
+                new Point(-1, 0),
+                new Point(1, 0),
+                new Point(-1, 1),
+                new Point(0, 1),
+                new Point(1, 1)
             };
-            foreach (Vector2 altPoint in candidateNeighbors)
+            foreach (Point altPoint in candidateNeighbors)
             {
                 if (coordinates.X + altPoint.X >= 0
                     && coordinates.X + altPoint.X < MapDimensions.X
                     && coordinates.Y + altPoint.Y >= 0
                     && coordinates.Y + altPoint.Y < MapDimensions.Y)
                 {
-                    validNeighbors.Add(new Vector2(coordinates.X + altPoint.X, coordinates.Y + altPoint.Y));
+                    validNeighbors.Add(coordinates + altPoint);
                 }
             }
             return validNeighbors;

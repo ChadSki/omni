@@ -10,19 +10,19 @@ namespace Omni
 {
     class GameTile
     {
-        private Vector2 coordinates;
+        private Point coordinates;
         public string Biome;
         public Unit Unit;
         public Terrain Terrain;
         public Building Building;
 
-        public GameTile(Vector2 coordinates, string Biome)
+        public GameTile(Point coordinates, string Biome)
         {
             this.coordinates = coordinates;
             this.Biome = Biome;
         }
 
-        public Vector2 Coordinates
+        public Point Coordinates
         {
             get { return coordinates; }
         }
