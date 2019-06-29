@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +10,23 @@ namespace Omni
 {
     class GameTile
     {
-        public int X;
-        public int Y;
+        private Vector2 coordinates;
         public string Biome;
         public Unit Unit;
         public Terrain Terrain;
         public Building Building;
 
-        public GameTile(int X, int Y, string Biome)
+        public GameTile(Vector2 coordinates, string Biome)
         {
-            this.X = X;
-            this.Y = Y;
+            this.coordinates = coordinates;
             this.Biome = Biome;
         }
+
+        public Vector2 Coordinates
+        {
+            get { return coordinates; }
+        }
+
         public bool IsPathable()
         {
             return ((Terrain == null || Terrain.pathable)

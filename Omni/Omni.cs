@@ -131,7 +131,7 @@ namespace Omni
             spriteBatch.Begin();
             foreach (GameTile tileObject in gameMap.game_tiles)
             {
-                var ti = coordinateConverter.MapToScreen(tileObject.X, tileObject.Y);
+                var ti = coordinateConverter.MapToScreen(tileObject.Coordinates);
                 float background_center = TileDimensions.X / 2 + (DisplayShift.X + displayLayerWidth / 2);
                 ti.X = ti.X + background_center - (TileDimensions.X);
                 spriteBatch.Draw(grass_tile, new Vector2(ti.X + DisplayShift.X, ti.Y + DisplayShift.Y), Color.White);
@@ -277,7 +277,7 @@ namespace Omni
             /// draw the selected tile graphic if the selected tile is within the map bounds
             if (gameMap.IsPointInside(CursorMapPos))
             {
-                var selected = coordinateConverter.MapToScreen(CursorMapPos.X, CursorMapPos.Y);
+                var selected = coordinateConverter.MapToScreen(CursorMapPos);
                 spriteBatch.Draw(white_selection_box, selected + DisplayShift, Color.White);
             }
             if (DisplayPaths)
@@ -288,7 +288,7 @@ namespace Omni
                     {
                         foreach (Vector2 pathStep in unitObject.GetPath())
                         {
-                            var rb = coordinateConverter.MapToScreen(pathStep.X, pathStep.Y);
+                            var rb = coordinateConverter.MapToScreen(pathStep);
                             spriteBatch.Draw(red_selection_box, rb + DisplayShift, Color.White);
                         }
                     }
@@ -298,7 +298,7 @@ namespace Omni
             Action<Entity> drawEntity = entity =>
             {
                 var imageFileHeightOffset = new Vector2(0, imageGraphics[entity.name].Height - TileDimensions.Y);
-                var te = coordinateConverter.MapToScreen(entity.X, entity.Y);
+                var te = coordinateConverter.MapToScreen(entity.Coordinates);
                 spriteBatch.Draw(imageGraphics[entity.name], te + DisplayShift - imageFileHeightOffset, Color.White);
             };
             gameMap.GetTerrain().ForEach(drawEntity);
